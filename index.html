@@ -1,82 +1,34 @@
-<!doctype html>
-<html lang="pt">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Unidos F.C. — Demo</title>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{
-      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-      background:#0048a0;
-      color:#fff;
-      overflow-x:hidden;
-    }
+<main class="hero">
+  <div class="logo-big">
+    <img id="logoImg" src="unidos.png" alt="Logo Unidos F.C.">
+    <div class="logo-caption">
+      <span id="msg"></span><br>
+      <span id="data-hora"></span>
+    </div>
+  </div>
+</main>
 
-    .topbar{
-      background:linear-gradient(90deg,#0048a0,#075db3);
-      color:#fff;
-      animation:fadeDown 1.1s ease;
-    }
+<script>
+  // Mensagem personalizada
+  document.getElementById("msg").textContent =
+    "Boas-vindas, Davi! Qual a boa de hoje?";
 
-    .site-header{
-      max-width:1200px;
-      margin:0 auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:12px 20px;
-    }
+  // Data e hora BR
+  function atualizar() {
+    const agora = new Date();
+    const opcoes = { timeZone:"America/Sao_Paulo", hour12:false };
+    const hora = agora.toLocaleTimeString("pt-BR", opcoes);
+    const data = agora.toLocaleDateString("pt-BR", opcoes);
+    document.getElementById("data-hora").textContent =
+      `${data} • ${hora}`;
+  }
+  setInterval(atualizar, 1000);
+  atualizar();
 
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo-small{
-      width:64px;height:64px;border-radius:50%;
-      overflow:hidden;background:#fff;padding:6px;
-      display:flex;align-items:center;justify-content:center;
-      animation:pop 0.8s ease;
-    }
-    .logo-small img{width:100%;height:auto}
-
-    .brand h1{
-      font-size:20px;letter-spacing:1px;
-      animation:fadeIn 2s ease;
-    }
-
-    nav{display:flex;gap:20px;align-items:center}
-    nav a img{width:22px;filter:invert(1);opacity:.85;transition:.3s}
-    nav a img:hover{opacity:1;transform:scale(1.15)}
-
-    .right-actions{display:flex;align-items:center;gap:16px}
-
-    .cta{
-      background:#fff;color:#0b5a2e;padding:6px 12px;
-      border-radius:6px;font-weight:700;display:flex;
-      align-items:center;gap:10px;
-      animation:fadeUp 1s ease;
-    }
-
-    /* HERO */
-    .hero{
-      background:linear-gradient(#0048a0,#075db3);
-      min-height:520px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex-direction:column;
-      text-align:center;
-      animation:fadeIn 2s ease;
-    }
-
-    .logo-big img{
-      max-width:360px;width:45vmin;height:auto;
-      animation:float 4s ease-in-out infinite;
-    }
-
-    .logo-caption{
-      margin-top:18px;color:#dbefff;font-weight:600;
-      font-size:18px;animation:fadeIn 3s ease;
-    }
-
-    /* Keyframe animations */
-    @keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
-    @keyframes fadeUp{0%{opacity:0;transform:tran
+  // -------- Fallback quando a imagem NÃO CARREGA ----------
+  document.getElementById("logoImg").addEventListener("error", () => {
+    document.getElementById("logoImg").style.display = "none";
+    document.querySelector(".logo-caption").innerHTML =
+      "<strong style='font-size:30px'>UNIDOS F.C.</strong><br>(imagem não encontrada)";
+  });
+</script>
